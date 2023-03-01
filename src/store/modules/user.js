@@ -29,12 +29,14 @@ const mutations = {
 }
 
 const actions = {
-  // user login
+  // user login Action：
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
         const { data } = response
+        // 登录成功后将token存储在cookie之中
+        // Cookies.set('Token', response.data.token)
         commit('SET_TOKEN', data.token)
         setToken(data.token)
         resolve()

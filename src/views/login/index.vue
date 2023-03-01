@@ -156,14 +156,16 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm)
-            .then(() => {
-              this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
-              this.loading = false
-            })
-            .catch(() => {
-              this.loading = false
-            })
+          // 调用store里面的user.js的login方法
+          this.$store.dispatch('user/login', this.loginForm).then(() => {
+            // 登录成功之后重定向到首页
+            this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+            this.loading = false
+          }).catch((err) => {
+            // 登录失败提示错误
+            this.$message.error(err)
+            this.loading = false
+          })
         } else {
           console.log('error submit!!')
           return false
