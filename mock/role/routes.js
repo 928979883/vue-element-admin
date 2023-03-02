@@ -79,6 +79,42 @@ const constantRoutes = [
  */
 const asyncRoutes = [
   {
+    path: '/table',
+    component: 'Layout',
+    redirect: '/table/complex-table',
+    name: 'Table',
+    meta: {
+      title: 'Table',
+      icon: 'table'
+    },
+    children: [
+      {
+        path: 'dynamic-table',
+        component: 'table/dynamic-table/index',
+        name: 'DynamicTable',
+        meta: { title: 'dynamicTable' }
+      },
+      {
+        path: 'drag-table',
+        component: 'table/drag-table',
+        name: 'DragTable',
+        meta: { title: 'dragTable' }
+      },
+      {
+        path: 'inline-edit-table',
+        component: 'table/inline-edit-table',
+        name: 'InlineEditTable',
+        meta: { title: 'inlineEditTable' }
+      },
+      {
+        path: 'complex-table',
+        component: 'table/complex-table',
+        name: 'ComplexTable',
+        meta: { title: 'complexTable' }
+      }
+    ]
+  },
+  {
     path: '/permission',
     component: 'Layout',
     redirect: '/permission/index',
@@ -359,31 +395,6 @@ const asyncRoutes = [
         component: 'tab/index',
         name: 'Tab',
         meta: { title: 'tab', icon: 'tab' }
-      }
-    ]
-  },
-
-  {
-    path: '/error',
-    component: 'Layout',
-    redirect: 'noRedirect',
-    name: 'ErrorPages',
-    meta: {
-      title: 'errorPages',
-      icon: '404'
-    },
-    children: [
-      {
-        path: '401',
-        component: 'error-page/401',
-        name: 'Page401',
-        meta: { title: 'page401', noCache: true }
-      },
-      {
-        path: '404',
-        component: 'error-page/404',
-        name: 'Page404',
-        meta: { title: 'page404', noCache: true }
       }
     ]
   },
