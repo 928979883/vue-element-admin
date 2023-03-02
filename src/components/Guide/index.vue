@@ -1,12 +1,10 @@
 <template>
-  <div class="app-container">
-    <aside>
-      {{ $t('guide.description') }}
-      <a href="https://github.com/kamranahmedse/driver.js" target="_blank">driver.js.</a>
-    </aside>
-    <el-button icon="el-icon-question" type="primary" @click.prevent.stop="guide">
+  <div class="guide">
+    <svg-icon class-name="search-icon" icon-class="guide" />
+
+    <!-- <el-button icon="el-icon-question" type="primary" @click.prevent.stop="guide">
       {{ $t('guide.button') }}
-    </el-button>
+    </el-button> -->
   </div>
 </template>
 
@@ -33,3 +31,13 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+  .guide {
+    font-size: 0 !important;
+    .search-icon {
+      cursor: pointer;
+      font-size: 18px;
+      vertical-align: middle;
+    }
+  }
+</style>

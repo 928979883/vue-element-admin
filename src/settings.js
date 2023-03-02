@@ -1,42 +1,45 @@
 module.exports = {
-  title: 'Vue Element Admin',
+  title: 'Vue后台管理平台',
 
   /**
-   * @type {boolean} true | false
-   * @description Whether show the settings right-panel
+   * 是否展示右侧全局控制按钮
+   * @type {boolean}
+   * @description
    */
   showSettings: true,
 
   /**
-   * @type {boolean} true | false
-   * @description Whether need tagsView
+   * 展示面包屑
+   * @type {boolean}
+   * @description
    */
   tagsView: true,
 
   /**
-   * @type {boolean} true | false
-   * @description Whether fix the header
+   * 是否固定头部栏
+   * @type {boolean}
+   * @description
    */
-  fixedHeader: false,
+  fixedHeader: true,
 
   /**
-   * @type {boolean} true | false
-   * @description Whether show the logo in sidebar
+   * 是否显示左上角LOGO
+   * @type {boolean}
+   * @description
    */
-  sidebarLogo: false,
+  sidebarLogo: true,
 
   /**
-   * @type {boolean} true | false
-   * @description Whether support pinyin search in headerSearch
+   * @type {boolean}
+   * @description 头部搜索框 是否支持拼音搜索
    * Bundle size minified 47.3kb,minified + gzipped 63kb
    */
   supportPinyinSearch: true,
 
   /**
-   * @type {string | array} 'production' | ['production', 'development']
-   * @description Need show err logs component.
-   * The default is only used in the production env
-   * If you want to also use it in dev, you can pass ['production', 'development']
+   * 哪些环境下显示错误日志组件 当前仅为开发环境
+   * @type {string | array} 'development' | ['production', 'development']
+   * @description 。
    */
-  errorLog: 'production'
+  errorLog: 'development'
 }
