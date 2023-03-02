@@ -1,7 +1,9 @@
-import { asyncRoutes, constantRoutes } from '@/router'
-
+import { constantRoutes } from '@/router'
+import Layout from '@/layout'
+import { getRoutes } from '@/api/role'
 /**
- * Use meta.role to determine if the current user has permission
+ * 传入登录用户的角色 = roles, 匹配路由的授权角色 = meta.role
+ * 两者互相匹配,最后返回一个该用户能够访问路由有哪些
  * @param roles
  * @param route
  */
@@ -14,7 +16,7 @@ function hasPermission(roles, route) {
 }
 
 /**
- * Filter asynchronous routing tables by recursion
+ *  按递归筛选异步路由表
  * @param routes asyncRoutes
  * @param roles
  */
@@ -24,8 +26,17 @@ export function filterAsyncRoutes(routes, roles) {
   routes.forEach(route => {
     const tmp = { ...route }
     if (hasPermission(roles, tmp)) {
-      if (tmp.children) {
-        tmp.children = filterAsyncRoutes(tmp.children, roles)
+      const component = tmp.component
+      if (route.component) {
+        if (component === 'Layout') {
+          tmp.component = Layout
+        } else {
+          // 接口组件字符串转换成组件对象
+          tmp.component = (resolve) => require([`@/views/${component}`], resolve)
+        }
+        if (tmp.children) {
+          tmp.children = filterAsyncRoutes(tmp.children, roles)
+        }
       }
       res.push(tmp)
     }
@@ -49,14 +60,11 @@ const mutations = {
 const actions = {
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
-      let accessedRoutes
-      if (roles.includes('admin')) {
-        accessedRoutes = asyncRoutes || []
-      } else {
-        accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
-      }
-      commit('SET_ROUTES', accessedRoutes)
-      resolve(accessedRoutes)
+      getRoutes().then(response => {
+        const accessedRoutes = filterAsyncRoutes(response.data, roles)
+        commit('SET_ROUTES', accessedRoutes)
+        resolve(accessedRoutes)
+      })
     })
   }
 }
