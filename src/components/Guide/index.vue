@@ -1,6 +1,6 @@
 <template>
   <div class="guide">
-    <svg-icon class-name="search-icon" icon-class="guide" />
+    <svg-icon class-name="search-icon" icon-class="guide" @click.prevent.stop="guide" />
 
     <!-- <el-button icon="el-icon-question" type="primary" @click.prevent.stop="guide">
       {{ $t('guide.button') }}

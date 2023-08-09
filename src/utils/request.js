@@ -2,6 +2,7 @@ import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
+import Config from '@/settings'
 
 // create an axios instance
 const service = axios.create({
@@ -19,7 +20,10 @@ service.interceptors.request.use(
       // let each request carry token
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
-      config.headers['X-Token'] = getToken()
+      config.headers['Authorization'] = 'Bearer ' + getToken()
+    }
+    if (Config.tenantId) {
+      config.headers['TENANT-ID'] = Config.tenantId
     }
     return config
   },
@@ -33,19 +37,16 @@ service.interceptors.request.use(
 // response interceptor
 service.interceptors.response.use(
   /**
-   * If you want to get http information such as headers or status
-   * Please return  response => response
-  */
-
-  /**
-   * Determine the request status by custom code
-   * Here is just an example
-   * You can also judge the status by HTTP Status Code
+   * 如果您想获取http信息，如头或状态
+   * 请返回response => response
+   *
+   * 通过自定义代码确定请求状态
+   * 这里只是一个例子
+   * 您也可以通过HTTP状态码来判断状态
    */
   response => {
     const res = response.data
-
-    // if the custom code is not 20000, it is judged as an error.
+    // 如果res.code不是20000，则判定为错误。
     if (res.code !== 20000) {
       Message({
         message: res.message || 'Error',
@@ -53,7 +54,7 @@ service.interceptors.response.use(
         duration: 5 * 1000
       })
 
-      // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
+      // 50008:非法令牌;50012:已登录的其他客户端;50014:令牌过期;
       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
         // to re-login
         MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
@@ -72,7 +73,7 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
+    console.log('err' + error)
     Message({
       message: error.message,
       type: 'error',

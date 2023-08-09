@@ -11,9 +11,6 @@
         <span style="font-size:20px;padding-top:20px;display:inline-block;">Editor's Dashboard</span>
       </div>
     </div>
-    <div>
-      <img :src="emptyGif" class="emptyGif">
-    </div>
   </div>
 </template>
 
@@ -26,9 +23,7 @@ export default {
   name: 'DashboardEditor',
   components: { PanThumb, GithubCorner },
   data() {
-    return {
-      emptyGif: 'https://wpimg.wallstcn.com/0e03b7da-db9e-4819-ba10-9016ddfdaed3'
-    }
+    return {}
   },
   computed: {
     ...mapGetters([
@@ -41,12 +36,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .emptyGif {
-    display: block;
-    width: 45%;
-    margin: 0 auto;
-  }
-
   .dashboard-editor-container {
     background-color: #e3e3e3;
     min-height: 100vh;

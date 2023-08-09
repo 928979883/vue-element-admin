@@ -2,7 +2,6 @@
   <div class="errPage-container">
     <ErrorA />
     <ErrorB />
-    <!-- $t is vue-i18n global function to translate lang -->
     <h3>{{ $t('errorLog.tips') }}</h3>
     <aside>
       {{ $t('errorLog.description') }}

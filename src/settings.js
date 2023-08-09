@@ -1,6 +1,44 @@
 module.exports = {
-  title: 'Vue后台管理平台',
-
+  /**
+   * @description 网站标题
+   */
+  title: '后台管理平台',
+  /**
+  * @description 租户ID
+  */
+  tenantId: '2',
+  /**
+  * @description 记住密码状态下的 token 在Cookie中存储的天数，默认1天
+  */
+  tokenCookieExpires: 1,
+  /**
+  * @description 记住密码状态下的 密码 在Cookie中存储的天数，默认1天s
+  */
+  passCookieExpires: 1,
+  /**
+  * @description 是否只保持一个子菜单的展开
+  */
+  uniqueOpened: true,
+  /**
+  * @description token key
+  */
+  TokenKey: 'WONFAR-SAAS-M-TOEKN',
+  /**
+  * @description 请求超时时间，毫秒（默认2分钟）
+  */
+  timeout: 1200000,
+  /**
+  * 是否显示设置的底部信息
+  */
+  showFooter: false,
+  /**
+  * 底部文字，支持html语法
+  */
+  footerTxt: '<a href="https://www.baidu.cn" target="_blank"></a>',
+  /**
+  * 备案号
+  */
+  caseNumber: '',
   /**
    * 是否展示右侧全局控制按钮
    * @type {boolean}

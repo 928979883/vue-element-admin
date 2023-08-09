@@ -70,7 +70,11 @@ export default {
     github: 'Github',
     theme: 'Tema',
     size: 'Tamaño global',
-    profile: 'Profile'
+    profile: 'Profile',
+    screenfull: '全屏',
+    guide: '导航',
+    langselect: '语言切换',
+    search: '导航栏快捷搜索'
   },
   login: {
     title: 'Formulario de acceso',

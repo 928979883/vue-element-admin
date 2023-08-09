@@ -70,7 +70,11 @@ export default {
     logOut: 'Log Out',
     profile: 'Profile',
     theme: 'Theme',
-    size: 'Global Size'
+    size: 'Global Size',
+    screenfull: 'Screenfull',
+    guide: '导航',
+    langselect: '语言切换',
+    search: '导航栏快捷搜索'
   },
   login: {
     title: 'Login Form',
