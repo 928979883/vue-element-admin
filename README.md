@@ -1,3 +1,10 @@
+## 项目依据
+1. 单前端项目，数据全部来源 Mock
+1. [项目官方文档](https://panjiachen.gitee.io/vue-element-admin-site/zh/guide/#%E5%8A%9F%E8%83%BD)
+2. [项目源地址](https://github.com/PanJiaChen/vue-element-admin)
+2. [已推送至我的github](https://github.com/928979883/vue-element-admin)
+3. 正在剔除原作者相关元素
+
 ## views和api
 1. 根据业务模块来划分 views
 2. 将views 和 api 两个模块一一对应
