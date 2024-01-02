@@ -1,6 +1,20 @@
 <template>
   <div class="app-container">
-    <!-- Note that row-key is necessary to get a correct row order. -->
+    <ul>
+      <li>以下常用数组操作 才能触发视图更新</li>
+      <li>添加数据
+        <ol>this.list.unshift(this.temp)</ol>
+      </li>
+      <li>删除数据 找到要删除数据在list中的位置
+        <ol>const index = this.list.indexOf(row);</ol>
+        <ol>this.list.splice(index, 1);</ol>
+      </li>
+      <li>修改数据 找到修改的数据在list中的位置
+        <ol>const index = this.list.indexOf(row);</ol>
+        <ol>this.list.splice(index, 1,this.updatedData);</ol>
+      </li>
+    </ul>
+    <!-- 注意,行键得到正确的ro是必要的 -->
     <el-table ref="dragTable" v-loading="listLoading" :data="list" row-key="id" border fit highlight-current-row style="width: 100%">
       <el-table-column align="center" label="ID" width="65">
         <template slot-scope="{row}">
@@ -52,11 +66,8 @@
         </template>
       </el-table-column>
     </el-table>
-    <!-- $t is vue-i18n global function to translate lang (lang in @/lang)  -->
     <div class="show-d">
       <el-tag style="margin-right:12px;">{{ $t('table.dragTips1') }} :</el-tag> {{ oldList }}
-    </div>
-    <div class="show-d">
       <el-tag>{{ $t('table.dragTips2') }} :</el-tag> {{ newList }}
     </div>
   </div>
@@ -67,6 +78,7 @@ import { fetchList } from '@/api/article'
 import Sortable from 'sortablejs'
 
 export default {
+  // Table 拖拽排序 基于Sortable
   name: 'DragTable',
   filters: {
     statusFilter(status) {
@@ -110,18 +122,18 @@ export default {
     },
     setSort() {
       const el = this.$refs.dragTable.$el.querySelectorAll('.el-table__body-wrapper > table > tbody')[0]
+      // 申明Sortable.create(el) table的每行tr就可以随意拖拽了
       this.sortable = Sortable.create(el, {
-        ghostClass: 'sortable-ghost', // Class name for the drop placeholder,
+        ghostClass: 'sortable-ghost',
         setData: function(dataTransfer) {
-          // to avoid Firefox bug
-          // Detail see : https://github.com/RubaXa/Sortable/issues/1012
-          dataTransfer.setData('Text', '')
+          dataTransfer.setData('Text', '') // 避免火狐错误
         },
         onEnd: evt => {
+          // 数据层list并没有随之改变。所以我们就要手动的来管理我们的列表
           const targetRow = this.list.splice(evt.oldIndex, 1)[0]
           this.list.splice(evt.newIndex, 0, targetRow)
 
-          // for show the changes, you can delete in you code
+          // newList为了显示变化
           const tempIndex = this.newList.splice(evt.oldIndex, 1)[0]
           this.newList.splice(evt.newIndex, 0, tempIndex)
         }

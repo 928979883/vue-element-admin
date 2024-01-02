@@ -81,6 +81,7 @@
 import { fetchList } from '@/api/article'
 
 export default {
+  // Table内联编辑
   name: 'InlineEditTable',
   filters: {
     statusFilter(status) {
@@ -110,9 +111,11 @@ export default {
       this.listLoading = true
       const { data } = await fetchList(this.listQuery)
       const items = data.items
+      // 每一条数据里面插入一个edit[ true or false ]判断符，来表示当前行是否处于编辑状态
+      // 之后通过v-show动态切换不同的相应view
       this.list = items.map(v => {
-        this.$set(v, 'edit', false) // https://vuejs.org/v2/guide/reactivity.html
-        v.originalTitle = v.title //  will be used when user click the cancel botton
+        this.$set(v, 'edit', false)
+        v.originalTitle = v.title // 当用户单击cancel按钮将被使用
         return v
       })
       this.listLoading = false

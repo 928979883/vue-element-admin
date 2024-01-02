@@ -306,7 +306,9 @@ export default {
       })
     },
     handleUpdate(row) {
-      this.temp = Object.assign({}, row) // copy obj
+      // 数组我们也有一个巧妙的防范
+      // newArray = oldArray.slice();
+      this.temp = Object.assign({}, row) // 防止使用统一内存
       this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'update'
       this.dialogFormVisible = true

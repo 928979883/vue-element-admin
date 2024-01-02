@@ -114,6 +114,19 @@ const asyncRoutes = [
       }
     ]
   },
+
+  {
+    path: '/tab',
+    component: 'Layout',
+    children: [
+      {
+        path: 'index',
+        component: 'tab/index',
+        name: 'Tab',
+        meta: { title: 'tab', icon: 'tab' }
+      }
+    ]
+  },
   {
     path: '/permission',
     component: 'Layout',
@@ -382,19 +395,6 @@ const asyncRoutes = [
         component: 'example/list',
         name: 'ArticleList',
         meta: { title: 'articleList', icon: 'list' }
-      }
-    ]
-  },
-
-  {
-    path: '/tab',
-    component: 'Layout',
-    children: [
-      {
-        path: 'index',
-        component: 'tab/index',
-        name: 'Tab',
-        meta: { title: 'tab', icon: 'tab' }
       }
     ]
   },

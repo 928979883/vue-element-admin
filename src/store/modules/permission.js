@@ -1,9 +1,11 @@
 import { constantRoutes } from '@/router'
 import Layout from '@/layout'
 import { getRoutes } from '@/api/role'
+
 /**
- * 传入登录用户的角色 = roles, 匹配路由的授权角色 = meta.role
- * 两者互相匹配,最后返回一个该用户能够访问路由有哪些
+ * 传入登录用户的角色 = roles
+ * 传入正在匹配的某个路由 = route.meta.roles
+ * 返回是否有权限访问该路由
  * @param roles
  * @param route
  */
@@ -16,8 +18,10 @@ function hasPermission(roles, route) {
 }
 
 /**
- *  按递归筛选异步路由表
- * @param routes asyncRoutes
+ *  传入动态路由表 = routes
+ *  传入登录用户的角色 = roles
+ *  过滤出用户有权访问的路由表 = res
+ * @param routes
  * @param roles
  */
 export function filterAsyncRoutes(routes, roles) {
@@ -58,6 +62,7 @@ const mutations = {
 }
 
 const actions = {
+  // 根据角色生成可访问路由表 = accessedRoutes
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
       getRoutes().then(response => {

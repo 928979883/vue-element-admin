@@ -36,7 +36,7 @@ export default {
     }
   },
   created() {
-    // init the default selected tab
+    // 初始化默认选中的选项卡
     const tab = this.$route.query.tab
     if (tab) {
       this.activeName = tab

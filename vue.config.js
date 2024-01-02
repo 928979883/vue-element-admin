@@ -17,17 +17,14 @@ const port = process.env.port || process.env.npm_config_port || 9527 // dev port
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
-  /**
-   * You will need to set publicPath if you plan to deploy your site under a sub path,
-   * for example GitHub Pages. If you plan to deploy your site to https://foo.github.io/bar/,
-   * then publicPath should be set to "/bar/".
-   * In most cases please use '/' !!!
-   * Detail: https://cli.vuejs.org/config/#publicpath
-   */
   publicPath: '/',
+  // build 时输出的文件目录
   outputDir: 'dist',
+  // build 放置静态文件夹目录
   assetsDir: 'static',
+  // 是否使用eslint 在生产构建时禁用 eslint-loader
   lintOnSave: process.env.NODE_ENV === 'development',
+  // 生产环境是否要生成 sourceMap
   productionSourceMap: false,
   devServer: {
     port: port,
@@ -39,8 +36,7 @@ module.exports = {
     before: require('./mock/mock-server.js')
   },
   configureWebpack: {
-    // provide the app's title in webpack's name field, so that
-    // it can be accessed in index.html to inject the correct title.
+    // 在 webpack 的名称字段中提供应用程序的标题，以便可以在索引中访问它.html以注入正确的标题。
     name: name,
     resolve: {
       alias: {
@@ -49,13 +45,11 @@ module.exports = {
     }
   },
   chainWebpack(config) {
-    // it can improve the speed of the first screen, it is recommended to turn on preload
-    // it can improve the speed of the first screen, it is recommended to turn on preload
+    // 可以提高首屏速度，建议开启预载
     config.plugin('preload').tap(() => [
       {
         rel: 'preload',
         // to ignore runtime.js
-        // https://github.com/vuejs/vue-cli/blob/dev/packages/@vue/cli-service/lib/config/app.js#L171
         fileBlacklist: [/\.map$/, /hot-update\.js$/, /runtime\..*\.js$/],
         include: 'initial'
       }

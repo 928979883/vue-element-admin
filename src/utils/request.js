@@ -4,22 +4,24 @@ import store from '@/store'
 import { getToken } from '@/utils/auth'
 import Config from '@/settings'
 
-// create an axios instance
+// 1. 服务端对每一个请求都会验证权限
+// 2. request拦截器 在每个请求头里面塞入token，好让后端对请求进行权限验证
+// 3. respone拦截器 当服务端返回特殊的状态码，我们统一做处理，如没权限或者token失效等操作
+
+// 创建一个axios实例
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
-  // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  // withCredentials: true, // 当跨域请求发送cookie
+  timeout: 5000 // 请求超时
 })
 
-// request interceptor
+// 请求拦截器
 service.interceptors.request.use(
   config => {
-    // do something before request is sent
+    // 该处可以在发送请求之前做些什么
 
     if (store.getters.token) {
-      // let each request carry token
-      // ['X-Token'] is a custom headers key
-      // please modify it according to the actual situation
+      // 让每个请求携带令牌 ['Authorization']
       config.headers['Authorization'] = 'Bearer ' + getToken()
     }
     if (Config.tenantId) {
@@ -28,13 +30,12 @@ service.interceptors.request.use(
     return config
   },
   error => {
-    // do something with request error
     console.log(error) // for debug
     return Promise.reject(error)
   }
 )
 
-// response interceptor
+// 响应拦截器
 service.interceptors.response.use(
   /**
    * 如果您想获取http信息，如头或状态

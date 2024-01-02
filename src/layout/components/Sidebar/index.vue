@@ -3,6 +3,7 @@
     <logo v-if="showLogo" :collapse="isCollapse" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <!-- default-active 高亮 -->
+      <!-- :default-openeds="['/example','/nested']" 对应submenu 的 route-path -->
       <el-menu
         :default-active="activeMenu"
         :collapse="isCollapse"
